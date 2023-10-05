@@ -1,5 +1,9 @@
+import './styles/placeholder.css'
+
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight'
+import Placeholder from '@tiptap/extension-placeholder'
+import Document from '@tiptap/extension-document'
 import {
   BubbleMenu,
   EditorContent,
@@ -12,16 +16,33 @@ import javascript from 'highlight.js/lib/languages/javascript'
 import 'highlight.js/styles/rainbow.css'
 
 import { lowlight } from 'lowlight'
-
-import { initialContent } from '../initialContent'
-import { ToggleGroupContent } from './ToggleGroupContent'
+import { ToggleGroupContent } from '../ToggleGroupContent'
 
 lowlight.registerLanguage('javascript', javascript)
 
 export function Editor() {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      Document.extend({
+        content: 'heading block*',
+      }),
+      StarterKit.configure({
+        codeBlock: false,
+        document: false,
+      }),
+      Placeholder.configure({
+        placeholder: ({ node }) => {
+          if (node.type.name === 'heading') {
+            return 'Untitled'
+          }
+
+          if (node.type.name === 'editorBlock') {
+            return ''
+          }
+
+          return "Type '/' to see commands..."
+        },
+      }),
       CodeBlockLowlight.configure({
         lowlight,
       }),
@@ -31,7 +52,6 @@ export function Editor() {
         class: 'max-w-[700px] mx-auto pt-12 prose prose-invert outline-none',
       },
     },
-    content: initialContent,
   })
 
   return (
@@ -59,7 +79,7 @@ export function Editor() {
           }}
         >
           <button
-            className="flex items-center hover:hover:bg-zinc-600 duration-300 transition-colors gap-1.5 p-1.5 rounded-lg"
+            className="flex items-center hover:hover:bg-zinc-600 duration-300 transition-colors gap-1.5 p-1.5 rounded-lg focus:outline-cyan-600 outline-none"
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 1 }).run()
             }
@@ -77,7 +97,7 @@ export function Editor() {
           </button>
 
           <button
-            className="flex items-center hover:hover:bg-zinc-600 duration-300 transition-colors gap-1.5 p-1.5 rounded-lg"
+            className="flex items-center hover:hover:bg-zinc-600 duration-300 transition-colors gap-1.5 p-1.5 rounded-lg focus:outline-cyan-600 outline-none"
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 2 }).run()
             }
@@ -95,7 +115,7 @@ export function Editor() {
           </button>
 
           <button
-            className="flex items-center hover:hover:bg-zinc-600 duration-300 transition-colors gap-1.5 p-1.5 rounded-lg"
+            className="flex items-center hover:hover:bg-zinc-600 duration-300 transition-colors gap-1.5 p-1.5 rounded-lg focus:outline-cyan-600 outline-none"
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 3 }).run()
             }
@@ -112,7 +132,7 @@ export function Editor() {
             </div>
           </button>
           <button
-            className="flex items-center hover:hover:bg-zinc-600 duration-300 transition-colors gap-1.5 p-1.5 rounded-lg"
+            className="flex items-center hover:hover:bg-zinc-600 duration-300 transition-colors gap-1.5 p-1.5 rounded-lg focus:outline-cyan-600 outline-none"
             onClick={() => editor.chain().focus().toggleBulletList().run()}
           >
             <img

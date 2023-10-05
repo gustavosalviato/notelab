@@ -12,6 +12,8 @@
   "dependencies": {
     "@radix-ui/react-toggle-group": "^1.0.4",
     "@tiptap/extension-code-block-lowlight": "^2.1.7",
+    "@tiptap/extension-document": "^2.1.8",
+    "@tiptap/extension-placeholder": "^2.1.8",
     "@tiptap/pm": "^2.1.7",
     "@tiptap/react": "^2.1.7",
     "@tiptap/starter-kit": "^2.1.7",
