@@ -13,15 +13,17 @@ import {
 
 import StarterKit from '@tiptap/starter-kit'
 import javascript from 'highlight.js/lib/languages/javascript'
-import 'highlight.js/styles/rainbow.css'
+import 'highlight.js/styles/tomorrow-night-blue.css'
 
 import { lowlight } from 'lowlight'
 import { ToggleGroupContent } from '../ToggleGroupContent'
+import { initialContent } from '../../initialContent'
 
 lowlight.registerLanguage('javascript', javascript)
 
 export function Editor() {
   const editor = useEditor({
+    content: initialContent,
     extensions: [
       Document.extend({
         content: 'heading block*',
