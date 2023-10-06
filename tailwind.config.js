@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'serif'],
+        mono: ['JetBrains Mono', 'serif'],
       },
     },
   },
