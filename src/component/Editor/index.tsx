@@ -8,6 +8,7 @@ import {
   BubbleMenu,
   EditorContent,
   FloatingMenu,
+  JSONContent,
   useEditor,
 } from '@tiptap/react'
 
@@ -17,13 +18,25 @@ import 'highlight.js/styles/tomorrow-night-blue.css'
 
 import { lowlight } from 'lowlight'
 import { ToggleGroupContent } from '../ToggleGroupContent'
-import { initialContent } from '../../initialContent'
+import { useState } from 'react'
 
 lowlight.registerLanguage('javascript', javascript)
 
+const LOCAL_STORAGE_KEY = 'noteLab:savedContent'
+
 export function Editor() {
+  const [editorContent, setEditorContent] = useState<JSONContent>(
+    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)!),
+  )
+
   const editor = useEditor({
-    content: initialContent,
+    content: editorContent,
+    onUpdate({ editor }) {
+      const newContent = editor.getJSON()
+
+      setEditorContent(newContent)
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newContent))
+    },
     extensions: [
       Document.extend({
         content: 'heading block*',
