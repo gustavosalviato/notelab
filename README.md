@@ -18,7 +18,7 @@
 <br>
 
 <p align="center">
-  <img alt="Notelab Preview" src=".github/notelab-preview" width="100%">
+  <img alt="Notelab Preview" src=".github/notelab-preview.png" width="100%">
 </p>
 
 ## 🚀 Technologies
