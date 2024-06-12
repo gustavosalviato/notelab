@@ -35,7 +35,7 @@ NoteLab is a simple web markdown editor
 
 - [Final project](https://notelab-pi.vercel.app/)
 
-## :memo: License
+## License
 
 This project is licensed under the MIT license.
 
